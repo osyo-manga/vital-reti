@@ -182,17 +182,19 @@ endfunction
 
 
 function! s:function(name, ...)
-	throw "No support."
-" 	try
-" 		if type(a:name) == type(function("tr"))
-" 			return a:name
-" 		endif
+	try
+		if type(a:name) == type(function("tr"))
+			return a:name
+		endif
+		return 0
+
 " 		let name = chained#to_function_symbol(a:name, chained#to_SID(chained#latest_called_script_function()))
-" " 		let name = a:name
-" 		return name =~ '^[a-zA-Z0-9#_:<>]\+$' && exists("*".name) ? function(name) : 0
-" 	catch
-" 		return 0
-" 	endtry
+
+		let name = a:name
+		return name =~ '^[a-zA-Z0-9#_:<>]\+$' && exists("*".name) ? function(name) : 0
+	catch
+		return 0
+	endtry
 endfunction
 
 
